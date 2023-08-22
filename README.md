@@ -68,3 +68,329 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## creating an object method for the book to clear the property and variables
+
+const firstBook = {
+author: "Rebecca Yarros",
+title: "Iron Flame",
+img: "./images/book-1.jpg",
+};
+
+const secondBook = {
+author: "Rebecca Yarros",
+title: "Fourth Wing",
+img: "./images/book-2.jpg",
+};
+
+const thirdBook = {
+author: "James Clear",
+title: "Atomic Habbits",
+img: "./images/book-3.jpg",
+};
+
+const fourthBook = {
+author: "Bonnie Garmus",
+title: "Fourth Wing",
+img: "./images/book-4.jpg",
+};
+
+const fifthBook = {
+author: "Abraham Verghesse",
+title: "The Convenant of Water",
+img: "./images/book-5.jpg",
+};
+
+### component which renders the book
+
+const BookList = () => {
+return (
+
+<section className="booklist">
+{/_ <Book top={author} midle={title} below={img} /> _/}
+<Book
+        author={firstBook.author}
+        title={firstBook.title}
+        img={firstBook.img}
+      >
+<p>
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio quidem
+ab minima tenetur fuga? Sapiente, facere iure architecto ut earum eos
+alias perspiciatis in maiores, veniam dolore, cumque nam fugiat.
+</p>
+</Book>
+<Book
+        author={secondBook.author}
+        title={secondBook.title}
+        img={secondBook.img}
+      />
+<Book
+        author={thirdBook.author}
+        title={thirdBook.title}
+        img={thirdBook.img}
+      />
+<Book
+        author={fourthBook.author}
+        title={fourthBook.title}
+        img={fourthBook.img}
+      />
+<Book
+        author={fifthBook.author}
+        title={fifthBook.title}
+        img={fifthBook.img}
+      />
+</section>
+);
+};
+
+### children prop
+
+everything we render between component tags
+during the course will mostly use it context API
+can place anywhere in JSX
+
+function BookList(){
+return(
+
+<section className='booklist' >
+<Book  
+        author={firstBook.author}
+        title={firstBook.title}
+        img={firstBook.img}
+        />
+<p>
+write anything as a parargraph to this book
+</p>
+</section>
+)
+}
+
+const Book = ({img, author, title, children}) =>{
+return(
+
+<article className='book'>
+<img src={img} alt{tile}/>
+<h2>{title}</h2>
+<h4>{author}</h4>
+{children}
+</article>
+)
+}
+
+### declaring a map call back function in two ways
+
+one
+const names = ['john', 'peter'];
+const newName = names.map((name)=>{
+retrun<h1>{name}</h1>
+}),
+
+two
+const BookList = () => {
+return(
+
+<section className='booklist'>
+{names.map((name)=>{
+return <h1>{name}</h1>
+})}
+
+        </section>
+    )
+
+}
+
+three
+const BookList = () => {
+return <section className='booklist'>{newName}</section>;
+}
+
+const BookList = () => {
+return (
+
+<section className="booklist">
+{books.map((book) => {
+const { img, title, author, id } = book;
+return <Book book={book} />;
+})}
+</section>
+);
+};
+
+### key or index
+
+always use key instead of index, you may use index if you think your data will never change.
+
+### passing the entire object as props
+
+- render component
+- pass entire object
+- destructuring (object)
+
+const BookList = () => {
+return (
+
+<section className="booklist">
+{books.map((book) => {
+return <Book book={book} key={book.id} />;
+})}
+</section>
+);
+};
+
+### using the spread operator
+
+- utilize the spread operator (...) - copy values
+  example
+  const friends = ['John', 'Peter'];
+  const newFriends = [...friends, 'Liz'];
+  you can console.log two outcomes
+  console.log (friends); which will output John and Peter
+  or console.log (newFriends); which will output John Peter and Liz
+
+additionally:
+const someObject = {
+name: 'John',
+job: 'developer',
+}
+spreading
+const newObject = {...someobject, location: 'Florida'};
+console.log(someObject); will equal John, developer.
+console.log(newObject); will equal John, developer, florida
+
+### adding event and eventListeners
+
+- element,event, function
+  const EventExamples = () => {
+  const handleFormInput = (e) => {
+  // console.log(e);
+  console.log(e.target);
+  console.log(e.target.name);
+  console.log(e.target.value);
+  console.log("handle form input");
+  };
+  const handleButtonClick = () => {
+  alert("handle button click");
+  };
+  const handleFormSubmission = (e) => {
+  e.preventDefault();
+  console.log("Form submitted");
+  };
+
+  return (
+  <section>
+  <form onSubmit={handleFormSubmission}>
+  <h2>Typical Form</h2>
+  <input
+  type="text"
+  name="example"
+  onChange={handleFormInput}
+  style={{ margin: "1rem 0" }}
+  />
+  <button type="submit">Submit</button>
+  </form>
+  <button onClick={handleButtonClick} type="button">
+  click me
+  </button>
+  </section>
+  );
+  };
+
+  ### ways of from submission
+
+  1 <form onSubmit={handleFormSubmission} >
+
+  <buttion type='submit'>submit</button>
+  </form>
+
+  2
+  <form>
+  <button type='submit' onClick={handleFormSubmission} >submit</button>
+  </form>
+
+### passing ananymous function also serves the same purpose as submiting event or event handlers
+
+eg
+const EventExample = () =>{
+return(
+
+<section>
+<input>
+type='text',
+name='product',
+onchange={(e)=>console.log(e.target.value)}
+</input>
+<button onClick={()=>console.log('click me')} ></button>Click me
+</section>
+)
+}
+
+### Mind Gernade, another ananymous function
+
+const Book = (props) =>{
+const {img, title, author} = props;
+const displayTitle = () =>{
+console.log(title);
+};
+
+return(
+
+<article>
+<img src={img} alt={title} >
+<h2>{title}</h2>
+<button onClick={displayTitle} >display title</button>
+<h4>{author}</h4>
+</article>
+)
+};
+
+### Prop Drilling
+
+- react data flow - can only pass props down
+  -alternatives Context API, redus, other state libraries
+
+function BookList () {
+const someValue = 'shakeAnd Bake';
+const displayValue = () => {
+console.log(someValue);
+};
+return (
+
+<section className="booklist">
+{books.map((book) => {
+return <Book book={book} key={book.id} displayValue={displayValue} />;
+})}
+</section>
+);
+};
+
+const Book = (props) =>{
+const {img, author, title, displayValue} = props;
+
+return(
+
+<article className='book'>
+<img src={img} alt{tile}/>
+<h2>{title}</h2>
+<h4>{author}</h4>
+<button onClick={displayValue}  >click me</button>
+</article>
+)
+}
+}
+
+### Local images in src folder
+
+- better performance bcos optimized
+
+### Build Production Application
+
+-stop the deve server "ctrl + c"
+-run npm run build
+build folder gerts created
+
+### Netlify , host project to be opened online by elsewhere
+
+-sign up
+-add new site/deploy mannually
+-choose build folder
+-rename site - site settings/change site name
